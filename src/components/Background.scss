@@ -1,10 +1,19 @@
 .background {
+    position: absolute;
+    z-index: 1;
     display: grid;
-    width: 100vw;
-    height: 100vh;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 아이콘의 너비를 조정하실 수 있습니다. */
-    gap: 10px; /* 아이콘 간격 설정 */
-    justify-items: center; /* 수평 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
-    // background-color: aquamarine;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); /* 아이콘의 너비를 조정하실 수 있습니다. */
+    grid-template-rows: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    background-color: aquamarine;
+    
+    .icon{
+      opacity: 0.04;
+      font-size: 100px;
+    }
   }
