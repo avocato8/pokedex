@@ -1,10 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import Background from './components/Background';
+import Template from './components/Template';
 
 function App() {
   return (
     <div className="App">
-      //https://pokeapi.co/api/v2/pokedex/2
+      <Background/>
+      <Template>
+        //https://pokeapi.co/api/v2/pokedex/2
+      </Template>
+   
       
     </div>
   );

@@ -1,7 +1,9 @@
+import './Template.scss';
+
 function Template(){
     return(
         <div className="Template">
-            <div></div>
+            <div>내용</div>
         </div>
     )
 }
