@@ -1,6 +1,6 @@
 .Template{
-    width: 1200px;
-    height: 650px;
+    width: 80%;
+    height: 80%;
     background-color: white;
     position: absolute;
     top: 50%;
@@ -8,4 +8,5 @@
     transform: translate(-50%, -50%);
     box-shadow: 5px 5px 5px 5px grey;
     z-index: 3;
+    overflow: auto;
 }

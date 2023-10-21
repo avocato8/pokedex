@@ -14,7 +14,6 @@ function App() {
       <Background/>
       <Template>
         <content/>
-        //https://pokeapi.co/api/v2/pokedex/2
       </Template>
    
       
