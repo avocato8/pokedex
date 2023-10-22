@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Sidebar() {
+    
     return (
         <>
             <ul className="nav flex-column">

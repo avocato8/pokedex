@@ -3,20 +3,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Background from './components/Background';
 import Template from './components/Template';
 import Sidebar from './components/sidebar';
-import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Spec from './components/spec';
 
 function App() {
-  const [data, setData] = useState([]);
-  
+
   return (
     <div className="App">
+      <Background />
       <Sidebar/>
-      <Background/>
-      <Template>
-        <content/>
-      </Template>
-   
-      
+      <Routes>
+        <Route path="/" element={
+              <Template>
+                <content />
+              </Template>
+        }></Route>
+
+
+
+        <Route path="gen1/:id" element={
+          <Spec />
+        }>
+        </Route>
+      </Routes>
+
+
+
     </div>
   );
 }
