@@ -11,26 +11,22 @@ function Spec(){
     useEffect(() => {
         axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)    //이름, 영어이름, 분류
             .then(res => {
-                const data = [res.data.names[2].name, res.data.genera[1].genus];
+                const data = [res.data.names[2].name, res.data.name, res.data.genera[1].genus];
+                const link = res.data.evolution_chain.url;
                 setSpec(data);
                 console.log(spec);
-                const link = res.data.evolution_chain.url;
+                
                 return axios.get(link);
             })
-            //진화트리
-            .then(res => {
-                const evolutionChain = [res.data.chain.species.name];
+           
+            .then(res => {       
+                console.log(res.data);                                            //진화트리
+                // const evolutionChain = [res.data.chain.species.name, res.data.chain.evolves_to[0].species.name, res.data.chain.evolves_to[0].evolves_to[0].species.name];
 
-                if (res.data.chain.evolves_to[0]) {
-                    evolutionChain.push(res.data.chain.evolves_to[0].species.name);
+                // setEvolution(evolutionChain);
+                // console.log(evolution);
 
-                    if (res.data.chain.evolves_to[0].evolves_to[0]) {
-                        evolutionChain.push(res.data.chain.evolves_to[0].evolves_to[0].species.name);
-                    }
-                }
-                setEvolution(evolutionChain);
-
-                return Promise.all(evolutionChain.map(pokemon => axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)));
+                // return Promise.all(evolutionChain.map(pokemon => axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)));
             })
     }, []);
 
