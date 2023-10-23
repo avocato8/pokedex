@@ -2,7 +2,7 @@ import { TbPokeball } from 'react-icons/tb';
 import './Background.scss';
 
 function Background(){
-    const iconCount = 200;
+    const iconCount = 210;
 
     return(
         <div className="background">

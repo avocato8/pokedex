@@ -6,16 +6,16 @@ function Sidebar() {
         <>
             <ul className="nav flex-column">
                 <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">Active</a>
+                    <a className="nav-link active" aria-current="page" href="#">1세대</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">2세대</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">3세대</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a className="nav-link" href="#">즐겨찾기</a>
                 </li>
             </ul>
         </>
