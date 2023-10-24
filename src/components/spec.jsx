@@ -13,7 +13,7 @@ function Spec(){
         height: 0,
         weight: 0,
     });
-    let [evolution, setEvolution] = useState([]);
+    const [evolution, setEvolution] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,14 +22,11 @@ function Spec(){
                 const specData = [response.data.names[2].name, response.data.genera[1].genus]; //이름, 분류
                 const EngName = response.data.name;
 
-
                 const detailSpecAPI = await axios.get(`https://pokeapi.co/api/v2/pokemon/${EngName}`);
-                console.log(detailSpecAPI)
 
                 let detailSpecData = [];   //타입1, 타입2, 키, 무게
 
                 const firstTypeAPI = await axios.get(detailSpecAPI.data.types[0].type.url);
-                console.log(firstTypeAPI.data);
                 const firstTypeData = firstTypeAPI.data.names[1].name;
                 detailSpecData.push(firstTypeData);
 
@@ -38,29 +35,42 @@ function Spec(){
                     const secondTypeData = secondTypeAPI.data.names[1].name;
                     detailSpecData.push(secondTypeData);
                 }
+                else{
+                    detailSpecData.push(null);
+                }
 
                 detailSpecData.push(detailSpecAPI.data.height, detailSpecAPI.data.weight);
-                console.log(detailSpecData);
-
 
                 const evolutionAPI = await axios.get(response.data.evolution_chain.url);
                 let evolutionData = [];
-
+  
                 if (evolutionAPI.data.chain && evolutionAPI.data.chain.species) {   //진화트리
-                    evolutionData.push(evolutionAPI.data.chain.species.name);
+                    const url = evolutionAPI.data.chain.species.url;
+                    const numberPattern = /\/(\d+)\//;
+                    const match = url.match(numberPattern);
+                    console.log(match);
+                    evolutionData.push(match[1]);
 
-                    if (evolutionAPI.data.chain.evolves_to[0] != null) {
-                        evolutionData.push(evolutionAPI.data.chain.evolves_to[0].species.name);
-
-                        if (evolutionAPI.data.chain.evolves_to[0].evolves_to[0] != null) {
-                            evolutionData.push(evolutionAPI.data.chain.evolves_to[0].evolves_to[0].species.name);
+                    if (evolutionAPI.data.chain.evolves_to[0] != undefined) {
+                        const url = evolutionAPI.data.chain.evolves_to[0].species.url;
+                        const numberPattern = /\/(\d+)\//;
+                        const match = url.match(numberPattern);
+                        console.log(match);
+                        evolutionData.push(match[1]);
+                        
+                        if (evolutionAPI.data.chain.evolves_to[0].evolves_to[0] != undefined) {
+                            const url = evolutionAPI.data.chain.evolves_to[0].evolves_to[0].species.url;
+                            const numberPattern = /\/(\d+)\//;
+                            const match = url.match(numberPattern);
+                            console.log(match);
+                            evolutionData.push(match[1]);
                         }
                     }
+                    setEvolution([...evolutionData]);
+                    console.log(evolutionData);
                 }
-
-                const specs = [specData[0], detailSpecData[0], detailSpecData[1], specData[1], detailSpecData[2], detailSpecData[3]];
-                setSpec({ ...spec, name: specs[0], type1: specs[1], type2: specs[2], species: specs[3], height: specs[4], weight: specs[5] });
-                setEvolution(evolutionData);
+                const specs = [specData[0], specData[1], detailSpecData[2], detailSpecData[3], detailSpecData[0], detailSpecData[1]];
+                setSpec({ ...spec, name: specs[0], type1: specs[4], type2: specs[5], species: specs[1], height: specs[2], weight: specs[3] });
             }
 
             catch (error) {
@@ -71,29 +81,6 @@ function Spec(){
         fetchData();
     }, [id]);
 
-    // axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-    //     .then(res => {
-    //         spec = [res.data.names[2].name, res.data.name, res.data.genera[1].genus]; //이름, 영어이름, 분류
-    //         const evolutionAPI = res.data.evolution_chain.url;
-
-    //         console.log(spec);
-    //         console.log(evolutionAPI);
-    //         return axios.get(evolutionAPI);
-    //     })
-
-    //     .then((res) => {
-    //         if (res.data.chain.species.name != null) {   //진화트리
-    //             evolution.push(res.data.chain.species.name);
-    //         }
-    //         if (res.data.chain.evolves_to[0].species.name != null) {
-    //             evolution.push(res.data.chain.evolves_to[0].species.name);
-    //         }
-    //         if (res.data.chain.evolves_to[0].evolves_to[0].species.name != null) {
-    //             evolution.push(res.data.chain.evolves_to[0].evolves_to[0].species.name);
-    //         }
-    //         console.log(evolution);
-    //     //return axios.get(`https://pokeapi.co/api/v2/pokemon/${EngName}`)
-    //     })
 
     // .then(
     //     evolution.map((pokemon) => {
@@ -125,6 +112,15 @@ function Spec(){
                     <div className="col">분류 : {spec.species}</div>
                     <div className="col">키 : {spec.height}</div>
                     <div className="col">무게: {spec.weight}</div>
+                    <div>
+                        {
+                            evolution.map(id => {
+                                return (                                    
+                                <img key={id} style={{width: '100px'}} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}/>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             </div>
 
