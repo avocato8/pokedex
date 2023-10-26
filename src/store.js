@@ -13,7 +13,6 @@ let checkedPokemon = createSlice({
             else{
                 return [...state, action.payload];
             }
-            
         }
     }
 });

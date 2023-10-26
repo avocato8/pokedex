@@ -1,15 +1,12 @@
 .spec{
-    width: 75%;
-    height: 75%;
-    background-color: white;
-    background-image: 'backgroundimage.png';
-    background-size: cover;
+    width: 85%;
+    height: 85%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 4;
-    // opacity: 0.8;
+    //opacity: 0.8;
     
     .row{
         height: 100%;
@@ -17,5 +14,14 @@
         position: absolute;
         justify-items: center;
         align-items: center;
+    }
+}
+
+.evolutionTree{
+    transition: all 0.2s linear;
+    cursor: pointer;
+
+    &:hover{
+        transform: scale(1.05);
     }
 }

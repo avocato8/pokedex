@@ -3,7 +3,14 @@
     justify-content: center;
 
     img{
-        // border: 2px solid #d3d3d3;
+        //border: 2px solid #d3d3d3;
         box-shadow: 1px 1px 1px 1px #d3d3d3;
+        margin-top: 18%;
+        transition: all 0.2s linear;
+        cursor: pointer;
+    
+        &:hover{
+            transform: scale(1.05);
+        }
     }
 }

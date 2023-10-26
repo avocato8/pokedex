@@ -20,11 +20,11 @@ function Content() {
 
         <Container>
             {/* <input type='text' onChange={(e) => {setSearch(e.target.value); console.log(search)}}></input> */}
-            <div className="row row-cols-1 row-cols-6 auto">
+            <div className="row row-cols-1 row-cols-6 g-3">
                 {
-                    [...pokemons].map(pokemon => {
+                    pokemons.map(pokemon => {
                         return (
-                            <div className="pokemon" key={pokemon.entry_number}><img style={{width: '85%'}} onClick={() => navigate('/gen1/' + pokemon.entry_number)} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.entry_number}.png`}/></div>
+                            <div className="pokemon" key={pokemon.entry_number}><img style={{width: '90%'}} onClick={() => navigate('/gen1/' + pokemon.entry_number)} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.entry_number}.png`}/></div>
                         )
                     })
                 }

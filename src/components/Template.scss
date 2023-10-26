@@ -9,4 +9,10 @@
     box-shadow: 5px 5px 5px 5px grey;
     z-index: 3;
     overflow: auto;
+    border-radius: 30px;
+    //background-image: url("/public/backgroundimage.png")
+}
+
+.Template::-webkit-scrollbar {
+    display: none;
 }

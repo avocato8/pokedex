@@ -2,8 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import './spec.scss';
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleClick } from "../store";
+import {ImCheckboxUnchecked, ImCheckboxChecked} from 'react-icons/im';
 
 
 
@@ -18,17 +19,19 @@ function Spec() {
         weight: 0,
     });
     const [evolution, setEvolution] = useState([]);
-    const [like, setLike] = useState(false);
+
     let navigate = useNavigate();
     let dispatch = useDispatch();
+    let pokemons = useSelector(state => state.checkedPokemon);
+    const [like, setLike] = useState(pokemons.includes(id) ? true : false);
 
     const clickHandler = (event) => {
+        console.log(event.target);
+        setLike(like ? false : true);
         const key = event.target.className;
-        console.log('클릭한 요소의 key:', key);
         dispatch(handleClick(key));
     }
 
-    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,7 +57,10 @@ function Spec() {
                     detailSpecData.push(null);
                 }
 
-                detailSpecData.push(detailSpecAPI.data.height, detailSpecAPI.data.weight);
+                const height = detailSpecAPI.data.height / 10 + 'm';
+                const weight = detailSpecAPI.data.weight / 10 + 'kg';
+                //detailSpecData.push(detailSpecAPI.data.height, detailSpecAPI.data.weight);
+                detailSpecData.push(height, weight);
 
                 const evolutionAPI = await axios.get(response.data.evolution_chain.url);
                 let evolutionData = [];
@@ -99,27 +105,33 @@ function Spec() {
 
     return (
         <div>
-            <div className="spec container text-center">
+            <div className="container spec" style={{ backgroundImage: "url('/backgroundimage.png')", backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}>
                 <div className="row">
-                    <div className="col"><img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}></img></div>
+                    
+                    <div className="col text-end"><img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}></img>
+                    </div>
+
                     <div className="col">
-                        <div className="col"><h1>{spec.name}</h1></div>
-                        <div className="col">타입1: {spec.type1}</div>
-                        <div className="col">타입2: {spec.type2}</div>
-                        <div className="col">분류 : {spec.species}</div>
-                        <div className="col">키 : {spec.height}</div>
-                        <div className="col">무게: {spec.weight}</div>
-                        <div className="col"><span className={id} onClick={clickHandler}>저장하기 : {like ? '❤️' : '🖤'}</span></div>
+                        <div><h1 style={{ fontWeight: 'bold' }}>{spec.name}</h1></div>
+
+                            <div style={{display: 'flex', height: '100px', gap: 'auto'}}>
+                                <div>타입<br></br>{spec.type1} {spec.type2}</div>
+                                <div>분류<br></br>{spec.species}</div>
+                                <div>키<br></br>{spec.height}</div>
+                                <div>무게<br></br>{spec.weight}</div>
+                            </div>
+                            <div className="col"><span className={id} onClick={clickHandler}>저장하기 : {like ? '❤️' : '🖤'}</span></div>
                         <div>
-                        {
-                            evolution.map(id => {
-                                return (
-                                    <img key={id} style={{ width: '200px' }} onClick={() => navigate('/gen1/' + id)} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`} />
-                                )
-                            })
-                        }
+                            {
+                                evolution.map(id => {
+                                    return (
+                                        <img key={id} className="evolutionTree" style={{ width: '150px' }} onClick={() => navigate('/gen1/' + id)} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`} />
+                                    )
+                                })
+                            }
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
