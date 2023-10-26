@@ -5,8 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { handleClick } from "../store";
 import {ImCheckboxUnchecked, ImCheckboxChecked} from 'react-icons/im';
-
-
+import { TbPokeball } from 'react-icons/tb';
 
 function Spec() {
     let { id } = useParams();
@@ -25,11 +24,10 @@ function Spec() {
     let pokemons = useSelector(state => state.checkedPokemon);
     const [like, setLike] = useState(pokemons.includes(id) ? true : false);
 
-    const clickHandler = (event) => {
-        console.log(event.target);
+    const clickHandler = (e) => {
+        e.stopPropagation();
         setLike(like ? false : true);
-        const key = event.target.className;
-        dispatch(handleClick(key));
+        dispatch(handleClick(id));
     }
 
 
@@ -111,17 +109,17 @@ function Spec() {
                     <div className="col text-end"><img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}></img>
                     </div>
 
-                    <div className="col">
-                        <div><h1 style={{ fontWeight: 'bold' }}>{spec.name}</h1></div>
+                    <div className="col" style={{display: 'flex', flexDirection: 'column', gap: '40px'}}>
+                        <div><h1 style={{ fontWeight: 'bold' }}>{spec.name}<span style={{cursor: 'pointer'}} className={id} onClick={clickHandler}> {like ? <ImCheckboxChecked/> : <ImCheckboxUnchecked/>}</span></h1></div>
 
-                            <div style={{display: 'flex', height: '100px', gap: 'auto'}}>
+                            <div style={{display: 'flex', width: '80%', justifyContent: 'space-between', fontSize: '22px'}}>
                                 <div>타입<br></br>{spec.type1} {spec.type2}</div>
                                 <div>분류<br></br>{spec.species}</div>
                                 <div>키<br></br>{spec.height}</div>
                                 <div>무게<br></br>{spec.weight}</div>
                             </div>
-                            <div className="col"><span className={id} onClick={clickHandler}>저장하기 : {like ? '❤️' : '🖤'}</span></div>
-                        <div>
+                            
+                        <div><h3><TbPokeball/> 진화</h3>
                             {
                                 evolution.map(id => {
                                     return (

@@ -1,15 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './sidebar.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function Sidebar() {
     let navigate = useNavigate();
-    let location = useLocation();
+    const [activeTab, setActiveTab] = useState(""); 
+
+    const handleTab = (path) => {
+        navigate(path);
+        setActiveTab(path);
+    }
+
     return (
         <>
             <div className="nav flex-column">
-                <span className={`nav-link navigation nav1 active ${location.pathname === '/' ? 'active' : ''}`} style={{backgroundColor: '#78C850'}} aria-current="page" onClick={() => navigate('/')}>홈</span>
-                <span className={`nav-link navigation ${location.pathname === '/favorites' ? 'active' : ''}`} style={{backgroundColor: '#FFCC33'}}onClick={() => navigate('/favorites')}>즐겨찾기</span>
+                <span className={`nav-link navigation active nav1 ${activeTab === '/' ? 'active' : ''}`} style={{backgroundColor: '#78C850'}} aria-current="page" onClick={() => handleTab('/')}>홈</span>
+                <span className={`nav-link navigation ${activeTab === '/favorites' ? 'active' : ''}`} style={{backgroundColor: '#FFCC33'}}onClick={() => handleTab('/favorites')}>즐겨찾기</span>
             </div>
         </>
     )
