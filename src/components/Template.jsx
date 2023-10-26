@@ -1,11 +1,9 @@
 import './Template.scss';
 
-import Content from './content';
-
-function Template(){
+function Template({children}){
     return(
         <div className="Template">
-            <div><Content/></div>
+            <div>{children}</div>
         </div>
     )
 }

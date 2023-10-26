@@ -19,7 +19,7 @@ function Content() {
     return (
 
         <Container>
-            <input type='text' onChange={(e) => {setSearch(e.target.value); console.log(search)}}></input>
+            {/* <input type='text' onChange={(e) => {setSearch(e.target.value); console.log(search)}}></input> */}
             <div className="row row-cols-1 row-cols-6 auto">
                 {
                     [...pokemons].map(pokemon => {

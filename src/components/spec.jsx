@@ -2,6 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import './spec.scss';
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { handleClick } from "../store";
+
+
 
 function Spec() {
     let { id } = useParams();
@@ -16,7 +20,15 @@ function Spec() {
     const [evolution, setEvolution] = useState([]);
     const [like, setLike] = useState(false);
     let navigate = useNavigate();
+    let dispatch = useDispatch();
 
+    const clickHandler = (event) => {
+        const key = event.target.className;
+        console.log('클릭한 요소의 key:', key);
+        dispatch(handleClick(key));
+    }
+
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -97,7 +109,7 @@ function Spec() {
                         <div className="col">분류 : {spec.species}</div>
                         <div className="col">키 : {spec.height}</div>
                         <div className="col">무게: {spec.weight}</div>
-                        <div className="col"><span onClick={() => like ? setLike(false): setLike(true)}>저장하기 : {like ? '❤️' : '🖤'}</span></div>
+                        <div className="col"><span className={id} onClick={clickHandler}>저장하기 : {like ? '❤️' : '🖤'}</span></div>
                         <div>
                         {
                             evolution.map(id => {

@@ -1,21 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
-    
+    let navigate = useNavigate();
     return (
         <>
             <ul className="nav flex-column">
                 <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">1세대</a>
+                    <a className="nav-link active" aria-current="page" onClick={() => navigate('/')}>홈</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">2세대</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#">3세대</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#">즐겨찾기</a>
+                    <a className="nav-link" onClick={() => navigate('/favorites')}>즐겨찾기</a>
                 </li>
             </ul>
         </>
