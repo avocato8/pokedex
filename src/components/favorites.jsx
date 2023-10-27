@@ -14,15 +14,15 @@ function Favorites() {
                 {
                     pokemons.length === 0 ? 
                         <div style={{display: 'flex', textAlign: 'center'}}><h1>포켓몬을 추가해주세요!</h1></div> : 
-                            <div className="row row-cols-1 row-cols-6 auto">
-                                {
-                                    pokemons.map(pokemon => {
-                                        return (
-                                            <div className="pokemon" key={pokemon}><img style={{width: '85%'}} onClick={() => navigate('/gen1/' + pokemon)} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon}.png`}/></div>
-                                        )
-                                    })
-                                }
-                            </div>
+                        <div className="row row-cols-1 row-cols-6 auto">
+                            {
+                                pokemons.map(pokemon => {
+                                    return (
+                                        <div className="pokemon" key={pokemon}><img style={{width: '85%'}} onClick={() => navigate('/gen1/' + pokemon)} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon}.png`}/></div>
+                                    )
+                                })
+                            }
+                        </div>
                 }
             </div>
         </Container>
